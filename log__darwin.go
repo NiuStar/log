@@ -9,7 +9,6 @@ import (
 	"syscall"
 )
 
-
 func GetLogFile() *os.File {
 	t3 := time.Now().Format("2006_01_02_15_04_05")
 	fmt.Println(t3)
@@ -43,41 +42,27 @@ func writeAll(logger *log.Logger) {
 		for {
 			select {
 			case <-ch:
-
 				{
-
 					for _,value := range errList {
-						)
 						panic(value)
-
-
 					}
-
 					logger.SetPrefix("[Info]")
 					for _,value := range strList {
 
 						logger.Println(value)
 
 					}
-
 					errList=append(errList[:0],errList[len(errList):]...)
 					strList=append(strList[:0],strList[len(strList):]...)
-
 				}
 				break
-
 			}
 		}
-
 	//<-ch//阻塞协程
 	//ch <- 1//释放协程
-
-
-
 }
 
 func Init() {
-
 	ch = make(chan bool)
 	t3 := time.Now().Format("2006_01_02_15_04_05")
 	fmt.Println(t3)

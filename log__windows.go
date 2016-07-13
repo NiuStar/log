@@ -96,7 +96,6 @@ func writeAll() {
 
 func Init() {
 
-	//glog.Infoln("this is a test")
 	ch = make(chan bool)
 	//var ch chan int、
 	t3 := time.Now().Format("2006_01_02_15_04_05")
