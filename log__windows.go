@@ -116,7 +116,7 @@ func Init() {
 }
 func Write(err error) {
 	fmt.Println("error: ",err)
-	ch1 := make(chan bool)
+	/*ch1 := make(chan bool)
 	go func() {
 		ch1 <- true
 		panic(err)
@@ -129,8 +129,8 @@ func Write(err error) {
 			return
 		}
 
-	}
-	//panic(err)
+	}*/
+	panic(err)
 }
 func WriteString(info string) {
 	strList = append(strList,info)
