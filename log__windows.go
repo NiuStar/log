@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"nqc.cn/utils"
+	//"nqc.cn/utils"
 	"time"
-	"runtime"
 	"syscall"
 )
 
+var (
+	kernel32         = syscall.MustLoadDLL("kernel32.dll")
+	procSetStdHandle = kernel32.MustFindProc("SetStdHandle")
+)
 func SetStdHandle(stdhandle int32, handle syscall.Handle) error {
-
-	kernel32         := syscall.MustLoadDLL("kernel32.dll")
-	procSetStdHandle := kernel32.MustFindProc("SetStdHandle")
 
 	r0, _, e1 := syscall.Syscall(procSetStdHandle.Addr(), 2, uintptr(stdhandle), uintptr(handle), 0)
 	if r0 == 0 {
@@ -27,7 +27,7 @@ func SetStdHandle(stdhandle int32, handle syscall.Handle) error {
 
 func redirect_err(f *os.File) {
 
-	err = SetStdHandle(syscall.STD_ERROR_HANDLE, syscall.Handle(f.Fd()))
+	err := SetStdHandle(syscall.STD_ERROR_HANDLE, syscall.Handle(f.Fd()))
 	if err != nil {
 		fmt.Println("SetStdHandle failed: %v", err)
 	}
@@ -36,17 +36,12 @@ func redirect_err(f *os.File) {
 func GetLogFile() *os.File {
 	t3 := time.Now().Format("2006_01_02_15_04_05")
 	fmt.Println(t3)
-	path := utils.GetCurrPath() + "log/log_" + t3 + ".txt"
+	path :=  "./log/log_" + t3 + ".txt"
 	logfile, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)
 	if err != nil {
 		fmt.Printf("%s\r\n", err.Error())
 		os.Exit(-1)
 	}
-
-
-
-
-
 	defer logfile.Close()
 	return logfile
 }
@@ -63,7 +58,7 @@ func Try(fun func(), handler func(interface{})) {
 	}()
 	fun()
 }
-func writeAll() {
+func writeAll(logger *log.Logger) {
 		for {
 			select {
 			case <-ch:
@@ -100,14 +95,14 @@ func Init() {
 	//var ch chan int、
 	t3 := time.Now().Format("2006_01_02_15_04_05")
 	fmt.Println(t3)
-	path := utils.GetCurrPath() + "log/log_" + t3 + ".txt"
+	path := "./log/log_" + t3 + ".txt"
 	logfile, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)
 	if err != nil {
 		fmt.Printf("%s\r\n", err.Error())
 		os.Exit(-1)
 	}
 	redirect_err(logfile)
-	defer logfile.Close()
+	//defer logfile.Close()
 	logger := log.New(logfile, "\r\n", log.Ldate|log.Ltime|log.Llongfile)
 
 	logger.SetFlags(logger.Flags() | log.LstdFlags)
@@ -115,7 +110,7 @@ func Init() {
 
 	logger.Println("log初始化完成")
 
-	go writeAll()
+	go writeAll(logger)
 	//flag.Parse()
 
 }
@@ -125,16 +120,17 @@ func Write(err error) {
 	go func() {
 		ch1 <- true
 		panic(err)
-
+		fmt.Println("error2: ",err)
 	} ()
 	select {
 	case <- ch1:
 		{
+			fmt.Println("error3: ",err)
 			return
 		}
 
 	}
-
+	//panic(err)
 }
 func WriteString(info string) {
 	strList = append(strList,info)
