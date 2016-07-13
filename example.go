@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"nqc.cn/log"
+	"github.com/NiuStar/log"
 	"encoding/json"
 )
 
