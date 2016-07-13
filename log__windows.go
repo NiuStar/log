@@ -3,14 +3,11 @@ package log
 import (
 	"fmt"
 	"log"
-	//"flag"
 	"os"
 	"nqc.cn/utils"
 	"time"
 	"runtime"
 	"syscall"
-	//"github.com/golang/glog"
-
 )
 
 func SetStdHandle(stdhandle int32, handle syscall.Handle) error {
@@ -67,38 +64,23 @@ func Try(fun func(), handler func(interface{})) {
 	fun()
 }
 func writeAll() {
-
-
-
-		//timeout := time.After(30 * time.Second)
 		for {
 			select {
 			case <-ch:
 
 				{
 
-					//logger.SetPrefix("[ERROR]")
-					//fmt.Println("打印错误日志Start")
 					for _,value := range errList {
-						//glog.Errorf(value)
-						//fmt.Println(1)
-						//delete(errList,key)
 						print(value)
-
-
 					}
-					//fmt.Println(2)
+
 					logger.SetPrefix("[Info]")
 					for _,value := range strList {
-						//delete(strList,key)
+
 						logger.Println(value)
 					}
-					//fmt.Println("删除错误日志Start")
 					errList=append(errList[:0],errList[len(errList):]...)
 					strList=append(strList[:0],strList[len(strList):]...)
-					//errList=append(errList[:len(errList)],errList[len(errList):]...)
-					//strList=append(strList[:len(strList)],strList[len(strList):]...)
-					//fmt.Println("打印错误日志End")
 				}
 				break
 
@@ -139,32 +121,23 @@ func Init() {
 
 }
 func Write(err error) {
-	//fmt.Println("错误长度")
-	//glog.ErrorDepth(3,err)
-	//glog.Flush()
-	/*go func() {
-		//logger.Fatal(err)
-	}()*/
 	fmt.Println("error: ",err)
-	panic(err)
-	//errList = append(errList,err)
-	//fmt.Println(errList)
-	//ch <- true
-	//close(ch)
-	//fmt.Println("错误长度")
-	//fmt.Println(len(errList))
-	//logger.Panicln(err)
+	ch1 := make(chan bool)
+	go func() {
+		ch1 <- true
+		panic(err)
+
+	} ()
+	select {
+	case <- ch1:
+		{
+			return
+		}
+
+	}
 
 }
 func WriteString(info string) {
-	/*go func() {
-		logger.Printf(info)
-	}()*/
-	fmt.Println(info)
 	strList = append(strList,info)
-	//fmt.Println(strList)
 	ch <- true
-	//close(ch)
-	//logger.Printf(info)
-
 }
