@@ -7,6 +7,7 @@ import (
 	"nqc.cn/utils"
 	"time"
 	"syscall"
+
 )
 
 func GetLogFile() *os.File {
@@ -85,6 +86,10 @@ func Init() {
 	go writeAll(logger)
 
 }
+
+func InitListner() {
+}
+
 func Write(err error) {
 
 	fmt.Println("error: ",err)
