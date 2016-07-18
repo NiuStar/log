@@ -10,9 +10,17 @@ import (
 func main() {
 	log.Init()
 	fmt.Println("fmt")
-	j1 := make(map[string]interface{})
 
+	j1 := make(map[string]interface{})
+	log.InitListner()
 	log.WriteString("1.Println log with log.LstdFlags ...")
+
+	go func() {
+		log.InitListner()
+		panic(errors.New("this is a BUG"))
+
+	}
+	
 	_, err := http.Get("cninct.com")
 	if err != nil {
 		fmt.Println(err)
@@ -21,4 +29,6 @@ func main() {
 	fmt.Println("123456")
 	body ,err := json.Marshal(j1)
 	fmt.Println(string(body))
+
+
 }
