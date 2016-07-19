@@ -14,9 +14,7 @@ var errList []error
 var strList []string
 var ch chan bool
 func writeAll(logger *log.Logger) {
-
 		for {
-
 			mutex.Lock()
 			logger.SetPrefix("[Info]")
 			for _,value := range strList {
@@ -61,6 +59,7 @@ func InitListner() {
 }
 
 func Write(err error) {
+	defer InitListner()
 	panic(err)
 }
 

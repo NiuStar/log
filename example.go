@@ -12,13 +12,10 @@ func main() {
 	fmt.Println("fmt")
 
 	j1 := make(map[string]interface{})
-	log.InitListner()
 	log.WriteString("1.Println log with log.LstdFlags ...")
 
 	go func() {
-		log.InitListner()
-		panic(errors.New("this is a BUG"))
-
+		log.Write(errors.New("this is a BUG"))
 	}
 	
 	_, err := http.Get("cninct.com")
