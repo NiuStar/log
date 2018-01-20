@@ -1,9 +1,6 @@
 # log
 
-[![Build Status](https://travis-ci.org/zserge/webview.svg?branch=master)](https://travis-ci.org/zserge/webview)
-[![Build status](https://ci.appveyor.com/api/projects/status/ksii33qx18d94h6v?svg=true)](https://ci.appveyor.com/project/zserge/webview)
-[![GoDoc](https://godoc.org/github.com/zserge/webview?status.svg)](https://godoc.org/github.com/zserge/webview)
-[![Go Report Card](https://goreportcard.com/badge/github.com/NiuStar/log)](https://goreportcard.com/report/github.com/NiuStar/log)
+[![Build Status](https://travis-ci.org/NiuStar/log.svg?branch=master)![Go Report Card](https://goreportcard.com/badge/github.com/NiuStar/log)](https://goreportcard.com/report/github.com/NiuStar/log)
 
 
 
