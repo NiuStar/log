@@ -7,8 +7,8 @@ package fmt
 import (
 	sfmt "fmt"
 	"github.com/petermattis/goid"
-	"nqc.cn/log"
-	"nqc.cn/utils"
+	"NiuStar/log"
+	"NiuStar/utils"
 	"sync"
 	"time"
 )

@@ -7,7 +7,7 @@ package log
 import (
 	"fmt"
 	"io/ioutil"
-	"nqc.cn/utils"
+	"NiuStar/utils"
 	"os"
 	"runtime/debug"
 	"time"
