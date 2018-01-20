@@ -30,6 +30,9 @@ install:
   - go version
   - go env
   - gcc --version
+  - go get github.com/NiuStar/utils
+  - go get github.com/NiuStar/log
+  - go get github.com/petermattis/goid
 
 build_script:
   - go build -o buildOutput\ -i ./example
