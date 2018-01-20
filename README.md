@@ -1,6 +1,7 @@
 # log
 
-[![Build Status](https://travis-ci.org/NiuStar/log.svg?branch=master)![Go Report Card](https://goreportcard.com/badge/github.com/NiuStar/log)](https://goreportcard.com/report/github.com/NiuStar/log)
+[![Build Status](https://travis-ci.org/NiuStar/log.svg?branch=master)](https://travis-ci.org/NiuStar/log)
+[![Go Report Card](https://goreportcard.com/badge/github.com/NiuStar/log)](https://goreportcard.com/report/github.com/NiuStar/log)
 
 
 
