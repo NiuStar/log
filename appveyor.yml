@@ -35,4 +35,4 @@ install:
   - go get github.com/petermattis/goid
 
 build_script:
-  - go build -o buildOutput\ -i ./example
+  - go build -o buildOutput -i ./example
