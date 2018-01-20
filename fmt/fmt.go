@@ -21,6 +21,7 @@ type logInfo struct {
 var list map[int64]interface{} = make(map[int64]interface{})
 var mutex sync.Mutex
 
+//线程开始时调用
 func Start() {
 
 	mutex.Lock()
@@ -47,6 +48,7 @@ func writeLog(gid int64) {
 	}
 }
 
+//线程结束时调用
 func Over() {
 
 	mutex.Lock()
@@ -57,6 +59,7 @@ func Over() {
 	delete(list, goid.Get())
 }
 
+//输出函数
 func Println(a ...interface{}) {
 
 	mutex.Lock()
