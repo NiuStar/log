@@ -23,3 +23,5 @@ matrix:
         - go get NiuStar/log
         - go get github.com/petermattis/goid
 
+script:
+  - cd examples && go build && ls -l && cd ../..
