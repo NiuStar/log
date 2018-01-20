@@ -1,8 +1,13 @@
+//
+//a example
+//
+
 package main
 
 import (
 	"fmt"
 	"net/http"
+	"errors"
 	"github.com/NiuStar/log"
 	"encoding/json"
 )
@@ -16,7 +21,7 @@ func main() {
 
 	go func() {
 		log.Write(errors.New("this is a BUG"))
-	}
+	}()
 	
 	_, err := http.Get("cninct.com")
 	if err != nil {

@@ -1,3 +1,7 @@
+//
+// fmt函数，为多线程输出所用
+//
+
 package fmt
 
 import (

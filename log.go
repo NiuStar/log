@@ -1,3 +1,7 @@
+//
+// Package log implements Go to https://github.com/NiuStar/log.
+//
+
 package log
 
 import (
@@ -39,7 +43,6 @@ func startTimer(days int) {
 	fmt.Println("距离下一次清除log还有: " ,next.Sub(now).Seconds(), " 秒")
 	timer(second,days)
 }
-
 
 func timer(seconds time.Duration,days int) {
 
@@ -119,21 +122,25 @@ func createNewLogFile() {
 
 	//go startTimer(saveDays)
 }
+
 //监听当前线程的崩溃事件，拦截，写入日志文件
 func InitListner(str string) {
 	if err := recover(); err != nil {
 		WriteString(fmt.Sprintln(fmt.Sprintln() + fmt.Sprintln(str) + fmt.Sprintf(`error: %v %v`,fmt.Sprintln(err),string(debug.Stack()))))
 	}
 }
+
 //写入error
 func Write(err error) {
 	defer InitListner("")
 	panic(err)
 }
+
 //写入正常字符串
 func WriteString(info string) {
 	WritePrintln(info)
 }
+
 //写入多个拼接内容
 func WritePrintln(a ...interface{}) {
 
