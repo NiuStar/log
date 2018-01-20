@@ -24,4 +24,4 @@ matrix:
         - go get github.com/petermattis/goid
 
 script:
-  - cd examples && go build && ls -l && cd ../..
+  - cd examples && go build && ls -l && cd ..
