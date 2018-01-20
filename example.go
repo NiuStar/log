@@ -30,6 +30,9 @@ func main() {
 	}
 	fmt.Println("123456")
 	body ,err := json.Marshal(j1)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(string(body))
 
 
