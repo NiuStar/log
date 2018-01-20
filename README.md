@@ -1,4 +1,12 @@
 # log
+
+[![Build Status](https://travis-ci.org/zserge/webview.svg?branch=master)](https://travis-ci.org/zserge/webview)
+[![Build status](https://ci.appveyor.com/api/projects/status/ksii33qx18d94h6v?svg=true)](https://ci.appveyor.com/project/zserge/webview)
+[![GoDoc](https://godoc.org/github.com/zserge/webview?status.svg)](https://godoc.org/github.com/zserge/webview)
+[![Go Report Card](https://goreportcard.com/badge/github.com/NiuStar/log)](https://goreportcard.com/report/github.com/NiuStar/log)
+
+
+
 日志系统，可以根据panic精确输出是哪行代码出错，是调试的好帮手
 
 #新增特性：
