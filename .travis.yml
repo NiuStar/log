@@ -12,11 +12,6 @@ matrix:
         - go get github.com/NiuStar/utils
         - go get github.com/NiuStar/log
         - go get github.com/petermattis/goid
-    - os: osx
-      before_install:
-        - go get github.com/NiuStar/utils
-        - go get github.com/NiuStar/log
-        - go get github.com/petermattis/goid
     - os: windows
       before_install:
         - go get github.com/NiuStar/utils
