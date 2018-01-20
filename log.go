@@ -63,7 +63,6 @@ func timer(seconds time.Duration, days int) {
 
 					}
 				}
-				return
 			}
 
 		}
