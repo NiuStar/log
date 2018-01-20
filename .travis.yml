@@ -5,7 +5,21 @@ go:
   - 1.9
   - tip
 
-script:
-  - go get NiuStar/utils
-  - go get NiuStar/log
-  - go get github.com/petermattis/goid
+matrix:
+  include:
+    - os: linux
+      before_install:
+        - go get NiuStar/utils
+        - go get NiuStar/log
+        - go get github.com/petermattis/goid
+    - os: osx
+      before_install:
+        - go get NiuStar/utils
+        - go get NiuStar/log
+        - go get github.com/petermattis/goid
+    - os: windows
+      before_install:
+        - go get NiuStar/utils
+        - go get NiuStar/log
+        - go get github.com/petermattis/goid
+
