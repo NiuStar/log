@@ -6,8 +6,8 @@ package log
 
 import (
 	"fmt"
-	"io/ioutil"
 	"github.com/NiuStar/utils"
+	"io/ioutil"
 	"os"
 	"runtime/debug"
 	"time"

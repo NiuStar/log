@@ -6,9 +6,9 @@ package fmt
 
 import (
 	sfmt "fmt"
-	"github.com/petermattis/goid"
 	"github.com/NiuStar/log"
 	"github.com/NiuStar/utils"
+	"github.com/petermattis/goid"
 	"sync"
 	"time"
 )
