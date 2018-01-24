@@ -1,6 +1,7 @@
 # log
 
 [![Build Status](https://travis-ci.org/NiuStar/log.svg?branch=master)](https://travis-ci.org/NiuStar/log)
+[![Build status](https://ci.appveyor.com/api/projects/status/ksii33qx18d94h6v?svg=true)](https://ci.appveyor.com/project/NiuStar/log)
 [![Go Report Card](https://goreportcard.com/badge/github.com/NiuStar/log)](https://goreportcard.com/report/github.com/NiuStar/log)
 
 
