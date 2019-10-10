@@ -9,7 +9,8 @@ import (
 	"github.com/NiuStar/utils"
 	"io/ioutil"
 	"os"
-	"runtime/debug"
+	//"runtime/debug"
+	"github.com/sirupsen/logrus"
 	"time"
 )
 
@@ -17,11 +18,16 @@ var year int     //上次写日志文件的年
 var month string //上次写日志文件的月
 var day int      //上次写日志文件的日
 
-var saveDays int = 7 //日志保留天数，默认不删除
+var saveDays int = 30 //日志保留天数，默认不删除
 //初始化，log日志保留几天，默认不删除
-func Init() {
+func Init(debug bool) {
+	if debug {
+		logrus.SetLevel(logrus.DebugLevel)
+	} else {
+		logrus.SetLevel(logrus.InfoLevel)
+	}
+	logrus.SetFormatter(&logrus.JSONFormatter{})
 	createNewLogFile()
-
 }
 
 func SetSaveDays(days int) {
@@ -113,42 +119,19 @@ func createNewLogFile() {
 		month = m.String()
 		day = d
 
-		os.Stdout = logfile
-		os.Stderr = logfile
+		logrus.SetOutput(logfile)
+		//os.Stdout = logfile
+		//os.Stderr = logfile
 	}
 
-	//go startTimer(saveDays)
+	go startTimer(saveDays)
 }
 
 //监听当前线程的崩溃事件，拦截，写入日志文件
 func InitListner(str string) {
 	if err := recover(); err != nil {
-		WriteString(fmt.Sprintln(fmt.Sprintln() + fmt.Sprintln(str) + fmt.Sprintf(`error: %v %v`, fmt.Sprintln(err), string(debug.Stack()))))
+		logrus.WithError(err.(error)).Error(str)
 	}
-}
-
-//写入error
-func Write(err error) {
-	defer InitListner("")
-	panic(err)
-}
-
-//写入正常字符串
-func WriteString(info string) {
-	WritePrintln(info)
-}
-
-//写入多个拼接内容
-func WritePrintln(a ...interface{}) {
-
-	createNewLogFile()
-
-	str := time.Now().Format("2006-01-02 15:04:05")
-
-	fmt.Fprintln(os.Stdout, "\n/***********************------------------------------------------------------------------------------------------------------------------------")
-	fmt.Fprintf(os.Stdout, str)
-	fmt.Fprintln(os.Stdout, a, "\n------------------------------------------------------------------------------------------------------------------------***********************/")
-
 }
 
 //获取指定目录下的所有文件，不进入下一级目录搜索，可以匹配后缀过滤。
@@ -171,4 +154,182 @@ func getNowFiles(dirPth string) []interface{} {
 	}
 	//fmt.Println("getNowFiles end")
 	return nowFile
+}
+
+
+// Debug logs a message at level Debug on the standard logger.
+func Debug(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Debug(list...)
+}
+
+// Print logs a message at level Info on the standard logger.
+func Print(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Print(list...)
+}
+
+// Info logs a message at level Info on the standard logger.
+func Info(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Info(args...)
+}
+
+// Warn logs a message at level Warn on the standard logger.
+func Warn(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Warn(args...)
+}
+
+// Warning logs a message at level Warn on the standard logger.
+func Warning(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Warning(args...)
+}
+
+// Error logs a message at level Error on the standard logger.
+func Error(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Error(args...)
+}
+
+// Panic logs a message at level Panic on the standard logger.
+func Panic(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Panic(args...)
+}
+
+// Fatal logs a message at level Fatal on the standard logger.
+func Fatal(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Fatal(args...)
+}
+
+// Debugf logs a message at level Debug on the standard logger.
+func Debugf(Tag string,format string, args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Debugf(format, args...)
+}
+
+// Printf logs a message at level Info on the standard logger.
+func Printf(Tag string,format string, args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Printf(format, args...)
+}
+
+// Infof logs a message at level Info on the standard logger.
+func Infof(Tag string,format string, args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Infof(format, args...)
+}
+
+// Warnf logs a message at level Warn on the standard logger.
+func Warnf(Tag string,format string, args ...interface{}) {
+	logrus.Warnf(Tag + format, args...)
+}
+
+// Warningf logs a message at level Warn on the standard logger.
+func Warningf(Tag string,format string, args ...interface{}) {
+	logrus.Warningf(Tag + format, args...)
+}
+
+// Errorf logs a message at level Error on the standard logger.
+func Errorf(Tag string,format string, args ...interface{}) {
+	logrus.Errorf(Tag + format, args...)
+}
+
+// Panicf logs a message at level Panic on the standard logger.
+func Panicf(Tag string,format string, args ...interface{}) {
+	logrus.Panicf(Tag + format, args...)
+}
+
+// Fatalf logs a message at level Fatal on the standard logger.
+func Fatalf(Tag string,format string, args ...interface{}) {
+	logrus.Fatalf(Tag + format, args...)
+}
+
+// Debugln logs a message at level Debug on the standard logger.
+func Debugln(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Debugln(list...)
+}
+
+// Println logs a message at level Info on the standard logger.
+func Println(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Println(list...)
+}
+
+// Infoln logs a message at level Info on the standard logger.
+func Infoln(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Infoln(list...)
+}
+
+// Warnln logs a message at level Warn on the standard logger.
+func Warnln(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Warnln(list...)
+}
+
+// Warningln logs a message at level Warn on the standard logger.
+func Warningln(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Warningln(list...)
+}
+
+// Errorln logs a message at level Error on the standard logger.
+func Errorln(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Errorln(list...)
+}
+
+// Panicln logs a message at level Panic on the standard logger.
+func Panicln(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Panicln(list...)
+}
+
+// Fatalln logs a message at level Fatal on the standard logger.
+func Fatalln(Tag string,args ...interface{}) {
+	var list []interface{}
+	list = append(list, Tag)
+	list = append(list,args...)
+	logrus.Fatalln(list...)
 }
